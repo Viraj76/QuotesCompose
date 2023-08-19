@@ -69,4 +69,6 @@ dependencies {
 
     // google fonts
     implementation("androidx.compose.material:material-icons-extended-android:1.5.0")
+    //gson
+    implementation("com.google.code.gson:gson:2.10.1")
 }

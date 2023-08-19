@@ -30,10 +30,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.quotes.models.Quote
 
 //@Preview
 @Composable
-fun QuotesListItem() {
+fun QuotesListItem(quote: Quote, onClick : () -> Unit) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         modifier = Modifier.padding(5.dp)
@@ -56,7 +57,7 @@ fun QuotesListItem() {
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = "This a quote , that be consistent in your work don't focus on others",
+                    text = quote.text,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp)
                 )
@@ -67,7 +68,7 @@ fun QuotesListItem() {
                         .height(1.dp)
                 )
                 Text(
-                    text = "Viraj Gupta",
+                    text = quote.author,
                     fontWeight = FontWeight.Thin,
                     modifier = Modifier.padding(top = 8.dp),
                     style = MaterialTheme.typography.bodyMedium
@@ -77,52 +78,3 @@ fun QuotesListItem() {
     }
 }
 
-@Preview
-@Composable
-fun QuoteDetail() {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxSize(1f)
-            .background(
-                Brush.sweepGradient(
-                    colors = listOf(
-                        Color(0xFFffffff),
-                        Color(0xFFE3E3E3)
-                    )
-                )
-            )
-    ) {
-        Card(
-            elevation = CardDefaults.cardElevation(defaultElevation = 7.dp),
-            modifier = Modifier.padding(20.dp)
-        ) {
-            Column(
-                verticalArrangement = Arrangement.Center,
-                modifier = Modifier
-                    .padding(10.dp, 20.dp)
-            ) {
-                Image(
-                    imageVector = Icons.Outlined.FormatQuote,
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(40.dp)
-                        .rotate(180f)
-                        .background(Color.Black),
-                    colorFilter = ColorFilter.tint(Color.White)
-
-                )
-                Text(
-                    text = "This is very sweet quote like you!",
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontSize = 23.sp
-                )
-                Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = "Viraj Gupta",
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-        }
-    }
-}
