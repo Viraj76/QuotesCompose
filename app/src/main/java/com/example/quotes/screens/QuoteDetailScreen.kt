@@ -1,5 +1,6 @@
 package com.example.quotes.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,11 +26,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.quotes.DataManager
 import com.example.quotes.models.Quote
 
 
 @Composable
 fun QuoteDetail(quote: Quote) {
+    BackHandler {
+        DataManager.switchPages(null)
+    }
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -62,16 +67,20 @@ fun QuoteDetail(quote: Quote) {
                     colorFilter = ColorFilter.tint(Color.White)
 
                 )
-                Text(
-                    text = quote.text,
-                    style = MaterialTheme.typography.bodyLarge,
-                    fontSize = 23.sp
-                )
+                quote.text?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontSize = 23.sp
+                    )
+                }
                 Spacer(modifier = Modifier.height(10.dp))
-                Text(
-                    text = quote.author,
-                    style = MaterialTheme.typography.bodySmall
-                )
+                quote.author?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.bodySmall
+                    )
+                }
             }
         }
     }

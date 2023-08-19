@@ -37,7 +37,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun App(){
     if(DataManager.isDataLoaded.value){
-        QuoteListScreen(data = DataManager.quotesData) {
+        if(DataManager.currentPage.value == Page.LISTING){
+            QuoteListScreen(data = DataManager.quotesData) {
+                DataManager.switchPages(it)
+            }
+        }
+        else{
+            DataManager.currentQuote?.let { QuoteDetail(quote = it) }
         }
     }
     else{
@@ -51,4 +57,9 @@ fun App(){
             )
         }
     }
+}
+
+enum class Page{
+    LISTING,
+    DETAIL
 }

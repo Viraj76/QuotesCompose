@@ -2,6 +2,7 @@ package com.example.quotes.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -34,10 +35,11 @@ import com.example.quotes.models.Quote
 
 //@Preview
 @Composable
-fun QuotesListItem(quote: Quote, onClick : () -> Unit) {
+fun QuotesListItem(quote: Quote, onClick : (quote : Quote) -> Unit) {
     Card(
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
         modifier = Modifier.padding(5.dp)
+            .clickable { onClick(quote) }
     ) {
         Row(
             modifier = Modifier.padding(16.dp)
@@ -56,23 +58,27 @@ fun QuotesListItem(quote: Quote, onClick : () -> Unit) {
             Column(
                 modifier = Modifier.weight(1f)
             ) {
-                Text(
-                    text = quote.text,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp)
-                )
+                quote.text?.let {
+                    Text(
+                        text = it,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(0.dp, 0.dp, 0.dp, 8.dp)
+                    )
+                }
                 Box(
                     modifier = Modifier
                         .fillMaxWidth(.4f)
                         .background(Color.Gray)
                         .height(1.dp)
                 )
-                Text(
-                    text = quote.author,
-                    fontWeight = FontWeight.Thin,
-                    modifier = Modifier.padding(top = 8.dp),
-                    style = MaterialTheme.typography.bodyMedium
-                )
+                quote.author?.let {
+                    Text(
+                        text = it,
+                        fontWeight = FontWeight.Thin,
+                        modifier = Modifier.padding(top = 8.dp),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                }
             }
         }
     }
